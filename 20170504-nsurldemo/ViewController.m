@@ -64,10 +64,14 @@
             NSDictionary * searchResult;
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
 //            NSLog(@"%@", response);
-            NSLog(@"count %@, %@", searchResult, [searchResult objectForKey:@"resultCount"]);
-            if (0 != [searchResult objectForKey:@"resultCount"]) {
+//            NSLog(@"count %@, %@", searchResult, [searchResult objectForKey:@"resultCount"]);
+            NSLog(@"isequal %i, value0 is %@", ([[searchResult allValues][0] isEqualToNumber:@0]), [searchResult allValues][0]);
+            if ([[searchResult allValues][0] isEqualToNumber:@0]) { //переписать адов пиздец, там беда c nscfnumber
+                NSLog(@"nothing found");
+            } else {
                 _searchBar.hidden = YES;
-                _results = [searchResult objectForKey:@"results"];
+                NSLog(@"something found");
+                _results = [searchResult allValues][1];
                 //parse table
                 [_table reloadData];
             }

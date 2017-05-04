@@ -20,9 +20,11 @@
     // Override point for customization after application launch.
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    window.rootViewController = [ViewController new];
-
     self.window = window;
+    UIViewController *viewController = [ViewController new];
+    viewController.view.frame = window.frame;
+    window.rootViewController = viewController;
+
     [window makeKeyAndVisible];
 
     return YES;
