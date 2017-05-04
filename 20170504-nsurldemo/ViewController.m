@@ -22,7 +22,7 @@
 //    NSString *cachePath = [cacheDirectory stringByAppendingPathComponent:@"MyCache"];
 //    NSURLCache
     NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultConfiguration];
-    NSURL *url = [NSURL URLWithString:@"https://www.gmail.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.google.com"];
     NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSLog(@"got response %@ with error %@.\n", response, error);
         NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSWindowsCP1251StringEncoding];
@@ -30,12 +30,5 @@
     }];
     [task resume];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
