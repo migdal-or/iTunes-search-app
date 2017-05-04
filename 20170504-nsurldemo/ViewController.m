@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) __block NSDictionary * results;
+@property (nonatomic, strong) UITableView *table;
 
 @end
 
@@ -24,11 +26,11 @@
     NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     _session = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     
-    UITableView *table = [UITableView new];
-    table.frame = self.view.frame;
-    table.delegate = self;
-    table.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
-    [self.view addSubview:table];
+    _table = [UITableView new];
+    _table.frame = self.view.frame;
+    _table.delegate = self;
+    _table.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
+    [self.view addSubview:_table];
     
     _searchBar = [UITextField new];
     _searchBar.text = @"Input search term";
@@ -36,8 +38,7 @@
     _searchBar.frame = CGRectMake(10, 10, 200, 30);
 //    _searchBar.delegate = self; //uisearchfield
     [_searchBar addTarget:self action:@selector(performSearch) forControlEvents:UIControlEventEditingDidEndOnExit];
-    [table addSubview:_searchBar];
-    
+    [_table addSubview:_searchBar];
 }
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
@@ -52,27 +53,27 @@
     //encode spaces %20
     NSString *searchURL = [_searchBar.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     NSString *urlString = [@"https://itunes.apple.com/search?term=" stringByAppendingString:searchURL];
-    NSLog(@"url is: %@", urlString);
-//    NSURL *image = [NSURL URLWithString:@"https://yabs.yandex.ru/count/Ctvl2lqgMdu40000gP0088wpxBMG1L6L0fi7QfI8lHyd1mU92QQ42Ogpl6e73zopl6e73xsz7oS71weBfQwBaWxT0P6r9z512PE53Pa5GQ2GdoIla9yasP2V9AU7ewYnG5bp1wJ00000iGskyTL2jnn-cWu2iGcoi4000a3vyTL2jnn-cWu2-WJy2Rly90PnkGyOX0R1__________yFqmBk0TlyP5_am0yOX0RVXGtrsXrdnXtL0lRO6ZFhM-jKV1O0"];
-//    NSURLSessionDataTask *downloadTask = [_session downloadTaskWithURL:image];
-//    // completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//    // nothing
-//    //    }];
-//    [downloadTask resume];
-    
+//    NSLog(@"url is: %@", urlString);
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-//                               if (!error) {
-//                                   NSError* parseError;
-//                                   id parse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&parseError];
-//                                   NSLog(@"%@", parse);
-//                               }
-//                           }];
+    
+    NSURLSessionDataTask *searchTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            NSDictionary * searchResult;
+            searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+//            NSLog(@"%@", response);
+            NSLog(@"count %@, %@", searchResult, [searchResult objectForKey:@"resultCount"]);
+            if (0 != [searchResult objectForKey:@"resultCount"]) {
+                _searchBar.hidden = YES;
+                _results = [searchResult objectForKey:@"results"];
+                //parse table
+                [_table reloadData];
+            }
+        }
+    }];
+    [searchTask resume];
 }
 
 #pragma mark - UITableViewDataSource
