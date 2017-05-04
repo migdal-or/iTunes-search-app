@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "20170504-nsurldemo/ViewController.m"
-            timestampString = "515611624.377652"
+            timestampString = "515615813.645058"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-performSearch"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
