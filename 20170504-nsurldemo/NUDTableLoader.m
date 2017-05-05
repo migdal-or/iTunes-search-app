@@ -37,19 +37,3 @@
 @end
 
 
-//@property (nonatomic, copy) NSString * trackName;
-//@property (nonatomic, copy) NSString * artistName;
-//@property (nonatomic, copy) NSString * collectionName;
-//@property (nonatomic, copy) NSURL * artworkUrl;
-//[2]	(null)	@"artworkUrl60" : @"http://is1.mzstatic.com/image/thumb/Music6/v4/72/83/2e/72832e75-a81b-1add-6696-87438c430ac5/source/60x60bb.jpg"
-//[16]	(null)	@"artworkUrl100" : @"http://is1.mzstatic.com/image/thumb/Music6/v4/72/83/2e/72832e75-a81b-1add-6696-87438c430ac5/source/100x100bb.jpg"
-//[3]	(null)	@"collectionCensoredName" : @"Pure Heroine"
-//[5]	(null)	@"collectionName" : @"Pure Heroine"
-//[24]	(null)	@"artistName" : @"Lorde"
-//[25]	(null)	@"trackName" : @"Team"
-
-
-//ADBContact * (^addContact)(NSString *, NSString *, NSString *, NSString *);
-//addContact = ^ADBContact*(NSString *firstName, NSString *lastName, NSString *phoneNumber, NSString *email) {
-//    
-//    if (nil == firstName) { NSLog(@"Cannot import contact without first name!"); return nil; }

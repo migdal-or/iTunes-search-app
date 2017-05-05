@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "NUDTable.h"
+#import "NUDTableLoader.h"
 
 @interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDataSource>
 
@@ -66,7 +66,8 @@
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
                 _searchBar.hidden = YES;
-                _songsTable = [[NUDTable alloc] initWithArray: searchResult[@"results"] ];
+                _songsTable = [NUDTable initSongsFromArray:searchResult[@"results"] ];
+//                [[NUDTable alloc] initWithArray: searchResult[@"results"] ];
                 
                 [_table reloadData];
             } else {
