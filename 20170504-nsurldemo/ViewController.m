@@ -7,13 +7,15 @@
 //
 
 #import "ViewController.h"
+#import "NUDTable.h"
 
 @interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) __block NSDictionary * results;
+//@property (nonatomic, strong) __block NSDictionary * results;
 @property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) NUDTable* songsTable;
 
 @end
 
@@ -50,30 +52,25 @@
 }
 
 -(void) performSearch {
+    NSString *searchTextWithoutSpaces = [_searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     //encode spaces %20
-    NSString *searchURL = [_searchBar.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-    NSString *urlString = [@"https://itunes.apple.com/search?term=" stringByAppendingString:searchURL];
-//    NSLog(@"url is: %@", urlString);
+    NSString *searchTextForURL = [searchTextWithoutSpaces stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+    NSString *urlSearchString = [@"https://itunes.apple.com/search?kind=song&term=" stringByAppendingString:searchTextForURL];
     
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
+    NSURL *urlSearch = [NSURL URLWithString:urlSearchString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:urlSearch];
     
     NSURLSessionDataTask *searchTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
             NSDictionary * searchResult;
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-//            NSLog(@"%@", response);
-//            NSLog(@"count %@, %@", searchResult, [searchResult objectForKey:@"resultCount"]);
-            NSLog(@"isequal %i, value0 is %@", ([[searchResult allValues][0] isEqualToNumber:@0]), [searchResult allValues][0]);
-            if ([[searchResult allValues][0] isEqualToNumber:@0]) { //переписать адов пиздец, там беда c nscfnumber
-                NSLog(@"nothing found");
-            } else {
+            if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
                 _searchBar.hidden = YES;
-                NSLog(@"something found");
-                _results = [searchResult allValues][1];
-                //parse table
+                _songsTable = [[NUDTable alloc] initWithArray: searchResult[@"results"] ];
+                
                 [_table reloadData];
+            } else {
+                NSLog(@"non");
             }
         }
     }];
@@ -82,14 +79,14 @@
 
 #pragma mark - UITableViewDataSource
 
-
 - (NSInteger) tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section {
-    return 5; //[self.animals count];
+    return [_songsTable count];
 }
 
 -(UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 //    cell.textLabel.text = self.animals[indexPath.row];
+    //
     return cell;
 }
 
