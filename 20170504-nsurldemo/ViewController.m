@@ -35,11 +35,10 @@
     _table.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
     [self.view addSubview:_table];
     
-    _searchBar = [UITextField new];
-    _searchBar.text = @"Input search term";
+    _searchBar = [UITextField new]; //uisearchfield
+    _searchBar.text = @"term";
     _searchBar.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
     _searchBar.frame = CGRectMake(10, 10, 200, 30);
-//    _searchBar.delegate = self; //uisearchfield
     [_searchBar addTarget:self action:@selector(performSearch) forControlEvents:UIControlEventEditingDidEndOnExit];
     [_table addSubview:_searchBar];
 }
@@ -53,15 +52,15 @@
 }
 
 -(void) performSearch {
+    //encode search bar text for inserting to url
     NSString *searchTextWithoutSpaces = [_searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    //encode spaces %20
     NSString *searchTextForURL = [searchTextWithoutSpaces stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-    NSString *urlSearchString = [@"https://itunes.apple.com/search?kind=song&term=" stringByAppendingString:searchTextForURL];
     
+    NSString *urlSearchString = [@"https://itunes.apple.com/search?kind=song&term=" stringByAppendingString:searchTextForURL];
     NSURL *urlSearch = [NSURL URLWithString:urlSearchString];
     NSURLRequest *request = [NSURLRequest requestWithURL:urlSearch];
     
-    __block NSMutableArray* arrayOfSongs;
+    __block NSMutableArray* arrayOfSongs = [NSMutableArray new];
     __block NUDSong * (^addSong)(NSString *, NSString *, NSString *, NSURL *);
     addSong = ^NUDSong*(NSString *trackName, NSString *artistName, NSString *collectionName, NSURL * artworkUrl) {
         if (nil == trackName) { NSLog(@"Cannot import contact without track name!"); return nil; }
@@ -79,12 +78,15 @@
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
                 _searchBar.hidden = YES;
-                for (id item in searchResult[@"results"]) {
-                    NSLog(@"got here! %@", item);
-                    [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkURL"] ]) ];
+                NSArray * songsFound;
+                songsFound = searchResult[@"results"];  //[searchResult allValues][1]
+                for (id item in songsFound) {
+//                    NSLog(@"got here! %@", item);
+                    [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkUrl30"] ]) ];
                 }
                 
                 _results = arrayOfSongs;
+                NSLog(@"got %@", _results);
                 
                 [_table reloadData];
             } else {
