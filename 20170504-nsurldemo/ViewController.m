@@ -10,7 +10,9 @@
 //#import "NUDTableLoader.h"
 #import "NUDTable.h"
 
-@interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDataSource>
+NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
+
+@interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
@@ -32,7 +34,10 @@
     _table = [UITableView new];
     _table.frame = self.view.frame;
     _table.delegate = self;
+    _table.dataSource = self;
     _table.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
+    _table.tableHeaderView = [UIView new];
+
     [self.view addSubview:_table];
     
     _searchBar = [UITextField new]; //uisearchfield
@@ -41,6 +46,9 @@
     _searchBar.frame = CGRectMake(10, 10, 200, 30);
     [_searchBar addTarget:self action:@selector(performSearch) forControlEvents:UIControlEventEditingDidEndOnExit];
     [_table addSubview:_searchBar];
+    
+    [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:NUDCellIdentifier];
+
 }
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
@@ -77,7 +85,7 @@
             NSDictionary * searchResult;
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
-                _searchBar.hidden = YES;
+//                _searchBar.hidden = YES;
                 NSArray * songsFound;
                 songsFound = searchResult[@"results"];  //[searchResult allValues][1]
                 for (id item in songsFound) {
@@ -85,8 +93,8 @@
                     [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkUrl30"] ]) ];
                 }
                 
-                _results = arrayOfSongs;
-                NSLog(@"got %@", _results);
+                _songsTable = arrayOfSongs;
+                NSLog(@"search returned %d results", songsFound.count);
                 
                 [_table reloadData];
             } else {
@@ -104,9 +112,10 @@
 }
 
 -(UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-//    cell.textLabel.text = self.animals[indexPath.row];
-    //
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NUDCellIdentifier];
+    
+    cell.textLabel.text = _songsTable[indexPath.row].trackName;
+
     return cell;
 }
 
@@ -114,11 +123,12 @@
 
 - (void) tableView:(UITableView *) tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath   {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UIViewController *vc = [UIViewController new];
-    vc.view.backgroundColor = UIColor.greenColor;
-    vc.navigationItem.title = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
+
+    NSLog(@"table row clicked");
+//    UIViewController *vc = [UIViewController new];
+//    vc.view.backgroundColor = UIColor.greenColor;
+//    vc.navigationItem.title = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
