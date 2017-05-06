@@ -27,7 +27,7 @@
         thisSong.artistName = artistName;
         thisSong.collectionName = collectionName;
         thisSong.artworkUrl = artworkUrl;
-        return thisSong;
+        return [thisSong copy];
     };
     
     NSMutableArray* arrayOfSongs;

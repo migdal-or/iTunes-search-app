@@ -12,6 +12,7 @@
 		04FC0DF21EBB908600EDD126 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DF11EBB908600EDD126 /* ViewController.m */; };
 		04FC0DF71EBB908600EDD126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FC0DF61EBB908600EDD126 /* Assets.xcassets */; };
 		842602281EBCD22600A54B07 /* NUDSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 842602271EBCD22600A54B07 /* NUDSong.m */; };
+		844764051EBDE7E90059687B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844764041EBDE7E90059687B /* Default-568h@2x.png */; };
 		84FE57541EBCDC4B009118B1 /* NUDTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE57531EBCDC4B009118B1 /* NUDTable.m */; };
 		84FE57571EBCE6C1009118B1 /* NUDTableLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE57561EBCE6C1009118B1 /* NUDTableLoader.m */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 		04FC0DFB1EBB908600EDD126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842602261EBCD22600A54B07 /* NUDSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDSong.h; sourceTree = "<group>"; };
 		842602271EBCD22600A54B07 /* NUDSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDSong.m; sourceTree = "<group>"; };
+		844764041EBDE7E90059687B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		84FE57521EBCDC4B009118B1 /* NUDTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTable.h; sourceTree = "<group>"; };
 		84FE57531EBCDC4B009118B1 /* NUDTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTable.m; sourceTree = "<group>"; };
 		84FE57551EBCE6C1009118B1 /* NUDTableLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTableLoader.h; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 		04FC0DDE1EBB908600EDD126 = {
 			isa = PBXGroup;
 			children = (
+				844764041EBDE7E90059687B /* Default-568h@2x.png */,
 				04FC0DE91EBB908600EDD126 /* 20170504-nsurldemo */,
 				04FC0DE81EBB908600EDD126 /* Products */,
 			);
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04FC0DF71EBB908600EDD126 /* Assets.xcassets in Resources */,
+				844764051EBDE7E90059687B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

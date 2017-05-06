@@ -7,13 +7,14 @@
 //
 
 #import "ViewController.h"
-#import "NUDTableLoader.h"
+//#import "NUDTableLoader.h"
+#import "NUDTable.h"
 
 @interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
-//@property (nonatomic, strong) __block NSDictionary * results;
+@property (nonatomic, strong) __block NSArray * results;
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NUDTable* songsTable;
 
@@ -60,14 +61,30 @@
     NSURL *urlSearch = [NSURL URLWithString:urlSearchString];
     NSURLRequest *request = [NSURLRequest requestWithURL:urlSearch];
     
+    __block NSMutableArray* arrayOfSongs;
+    __block NUDSong * (^addSong)(NSString *, NSString *, NSString *, NSURL *);
+    addSong = ^NUDSong*(NSString *trackName, NSString *artistName, NSString *collectionName, NSURL * artworkUrl) {
+        if (nil == trackName) { NSLog(@"Cannot import contact without track name!"); return nil; }
+        NUDSong * thisSong = [NUDSong new];
+        thisSong.trackName = trackName;
+        thisSong.artistName = artistName;
+        thisSong.collectionName = collectionName;
+        thisSong.artworkUrl = artworkUrl;
+        return thisSong;
+    };
+    
     NSURLSessionDataTask *searchTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
             NSDictionary * searchResult;
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
                 _searchBar.hidden = YES;
-                _songsTable = [NUDTable initSongsFromArray:searchResult[@"results"] ];
-//                [[NUDTable alloc] initWithArray: searchResult[@"results"] ];
+                for (id item in searchResult[@"results"]) {
+                    NSLog(@"got here! %@", item);
+                    [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkURL"] ]) ];
+                }
+                
+                _results = arrayOfSongs;
                 
                 [_table reloadData];
             } else {
