@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NUDSong : NSObject
 
@@ -14,5 +15,7 @@
 @property (nonatomic, copy) NSString * artistName;
 @property (nonatomic, copy) NSString * collectionName;
 @property (nonatomic, copy) NSURL * artworkUrl;
+@property (nonatomic, copy) UIImage * songImage;
+
 
 @end

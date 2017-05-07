@@ -12,7 +12,7 @@
 		04FC0DF21EBB908600EDD126 /* NUDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DF11EBB908600EDD126 /* NUDNavigationController.m */; };
 		04FC0DF71EBB908600EDD126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FC0DF61EBB908600EDD126 /* Assets.xcassets */; };
 		842602281EBCD22600A54B07 /* NUDSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 842602271EBCD22600A54B07 /* NUDSong.m */; };
-		844326531EBF61610047CE02 /* NUDTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844326521EBF61610047CE02 /* NUDTableCellView.m */; };
+		844326561EBF624F0047CE02 /* NUDTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844326551EBF624F0047CE02 /* NUDTableCellView.m */; };
 		844764051EBDE7E90059687B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844764041EBDE7E90059687B /* Default-568h@2x.png */; };
 		84FE57541EBCDC4B009118B1 /* NUDTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE57531EBCDC4B009118B1 /* NUDTable.m */; };
 /* End PBXBuildFile section */
@@ -28,8 +28,8 @@
 		04FC0DFB1EBB908600EDD126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842602261EBCD22600A54B07 /* NUDSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDSong.h; sourceTree = "<group>"; };
 		842602271EBCD22600A54B07 /* NUDSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDSong.m; sourceTree = "<group>"; };
-		844326511EBF61610047CE02 /* NUDTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTableCellView.h; sourceTree = "<group>"; };
-		844326521EBF61610047CE02 /* NUDTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTableCellView.m; sourceTree = "<group>"; };
+		844326541EBF624F0047CE02 /* NUDTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTableCellView.h; sourceTree = "<group>"; };
+		844326551EBF624F0047CE02 /* NUDTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTableCellView.m; sourceTree = "<group>"; };
 		844764041EBDE7E90059687B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		84FE57521EBCDC4B009118B1 /* NUDTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTable.h; sourceTree = "<group>"; };
 		84FE57531EBCDC4B009118B1 /* NUDTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTable.m; sourceTree = "<group>"; };
@@ -88,8 +88,8 @@
 		844326501EBF61470047CE02 /* Table Cell */ = {
 			isa = PBXGroup;
 			children = (
-				844326511EBF61610047CE02 /* NUDTableCellView.h */,
-				844326521EBF61610047CE02 /* NUDTableCellView.m */,
+				844326541EBF624F0047CE02 /* NUDTableCellView.h */,
+				844326551EBF624F0047CE02 /* NUDTableCellView.m */,
 			);
 			name = "Table Cell";
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 				04FC0DF21EBB908600EDD126 /* NUDNavigationController.m in Sources */,
 				842602281EBCD22600A54B07 /* NUDSong.m in Sources */,
 				04FC0DEF1EBB908600EDD126 /* AppDelegate.m in Sources */,
-				844326531EBF61610047CE02 /* NUDTableCellView.m in Sources */,
+				844326561EBF624F0047CE02 /* NUDTableCellView.m in Sources */,
 				84FE57541EBCDC4B009118B1 /* NUDTable.m in Sources */,
 				04FC0DEC1EBB908600EDD126 /* main.m in Sources */,
 			);

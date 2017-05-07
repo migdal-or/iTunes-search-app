@@ -6,8 +6,13 @@
 //  Copyright © 2017 iOS-School-1. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface NUDTableCellView : NSObject
+@interface NUDTableCellView : UITableViewCell
+
+@property(nonatomic, strong) UILabel* artist;
+@property(nonatomic, strong) UILabel* track;
+@property(nonatomic, strong) UILabel* collection;
+@property(nonatomic, strong) UIImageView* image;
 
 @end

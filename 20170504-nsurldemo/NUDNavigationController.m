@@ -8,6 +8,7 @@
 
 #import "NUDNavigationController.h"
 #import "NUDTable.h"
+#import "NUDTableCellView.h"
 
 NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 
@@ -78,6 +79,8 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
         thisSong.artistName = artistName;
         thisSong.collectionName = collectionName;
         thisSong.artworkUrl = artworkUrl;
+        thisSong.songImage = [ [UIImage alloc] initWithData: [NSData dataWithContentsOfURL:artworkUrl] ] ;
+//        NSLog(@"song added");
         return thisSong;
     };
     
@@ -90,11 +93,13 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
                 NUDTable * songsFound;
                 songsFound = searchResult[@"results"];  //[searchResult allValues][1]
                 for (id item in songsFound) {
-                    [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkUrl30"] ]) ];
+                    [arrayOfSongs addObject:addSong( item[@"trackName"],
+                                                    item[@"artistName"],
+                                                    item[@"collectionName"],
+                                                    [NSURL URLWithString:item[@"artworkUrl30"]] ) ];
                 }
-                
-                _songsTable = [arrayOfSongs copy];
-                NSLog(@"search returned %d results", songsFound.count);
+                _songsTable = arrayOfSongs;
+                NSLog(@"search returned %d results", _songsTable.count);
                 
                 [_table reloadData];
             } else {
@@ -112,9 +117,17 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 }
 
 -(UITableViewCell *) tableView:(UITableView *) tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NUDCellIdentifier];
+    NUDTableCellView *cell = [[NUDTableCellView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NUDCellIdentifier];
     
-    cell.textLabel.text = _songsTable[indexPath.row].trackName;
+    cell.track.text = _songsTable[indexPath.row].trackName;
+    cell.artist.text = _songsTable[indexPath.row].artistName;
+    cell.collection.text = _songsTable[indexPath.row].collectionName;
+    [cell.image addSubview: [[UIImageView alloc] initWithImage:_songsTable[indexPath.row].songImage] ] ;
+    
+    //    @property(nonatomic, strong) UILabel* artist;
+    //    @property(nonatomic, strong) UILabel* track;
+    //    @property(nonatomic, strong) UILabel* collection;
+    //    @property(nonatomic, strong) NSURL* imgUrl;
 
     return cell;
 }
