@@ -9,7 +9,7 @@
 #import "NUDTable.h"
 #import "NUDSong.h"
 
-@interface NUDTable ()
+@interface NUDTable () <NSCoding>
 
 @property(nonatomic, copy, readwrite) NSArray *table;
 
@@ -33,32 +33,20 @@
     return self.table[index];
 }
 
-//-(instancetype) initSongsFromArray: (NSArray *) iTunesArray {
-//    self = [super init];
-//    NUDSong * (^addSong)(NSString *, NSString *, NSString *, NSURL *);
-//    addSong = ^NUDSong*(NSString *trackName, NSString *artistName, NSString *collectionName, NSURL * artworkUrl) {
-//        if (nil == trackName) { NSLog(@"Cannot import contact without track name!"); return nil; }
-//        NUDSong * thisSong = [NUDSong new];
-//        thisSong.trackName = trackName;
-//        thisSong.artistName = artistName;
-//        thisSong.collectionName = collectionName;
-//        thisSong.artworkUrl = artworkUrl;
-//        return [thisSong copy];
-//    };
-//
-//    NSMutableArray* arrayOfSongs;
-//
-//    for (id item in iTunesArray) {
-//        NSLog(@"got here! %@", item);
-//        [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkURL"] ]) ];
-//    }
-//
-//    if (self) {
-//        _table = arrayOfSongs;
-//    }
-//
-//    return self;
-//
-//}
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:_table forKey:@"table"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if((self = [super init]))
+    {
+        //decode properties, other class vars
+        _table = [decoder decodeObjectForKey:@"table"];
+    }
+    return self;
+}
 
 @end

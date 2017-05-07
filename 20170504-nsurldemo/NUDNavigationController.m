@@ -9,10 +9,13 @@
 #import "NUDNavigationController.h"
 #import "NUDTable.h"
 #import "NUDTableCellView.h"
+#define LOCAL_MODE YES // just to skip all this iTunes bullshit and load data from local file )
+#define STORE_FILE YES // save itunes log if non-local mode call?
+#define ARCHIVE_FILE_PATH @"/Users/admin/Desktop/songsTable.data"
 
 NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 
-@interface NUDNavigationController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface NUDNavigationController () <NSURLSessionDownloadDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
@@ -50,7 +53,10 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
     [_table addSubview:_searchBar];
     
     [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:NUDCellIdentifier];
-
+   
+    if (LOCAL_MODE) {
+    [self performSearch];   //do not wait for user to input search terms
+    }
 }
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
@@ -62,6 +68,20 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 }
 
 -(void) performSearch {
+    
+    if (LOCAL_MODE) {
+        _songsTable = [[NUDTable alloc] initWithArray: [NSKeyedUnarchiver unarchiveObjectWithFile:ARCHIVE_FILE_PATH] ];
+//        NSLog(@"dir %@", [[NSFileManager defaultManager] ]);
+//        if (_songsTable) {
+//            //success = [NSKeyedArchiver archiveRootObject:person toFile:archiveFilePath]
+//            NSLog(@"unarchiving ok");
+//        } else {
+//            NSLog(@"unarchiving failed");
+//        };
+        
+        [_table reloadData];
+
+    } else {
     //encode search bar text for inserting to url
     NSString *searchTextWithoutSpaces = [_searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *searchTextForURL = [searchTextWithoutSpaces stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
@@ -78,7 +98,6 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
         thisSong.trackName = trackName;
         thisSong.artistName = artistName;
         thisSong.collectionName = collectionName;
-        thisSong.artworkUrl = artworkUrl;
         thisSong.songImage = [ [UIImage alloc] initWithData: [NSData dataWithContentsOfURL:artworkUrl] ] ;
 //        NSLog(@"song added");
         return thisSong;
@@ -101,6 +120,15 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
                 _songsTable = arrayOfSongs;
                 NSLog(@"search returned %d results", _songsTable.count);
                 
+                if (STORE_FILE) {
+                    if ([NSKeyedArchiver archiveRootObject:_songsTable toFile:ARCHIVE_FILE_PATH]) {
+                        //success = [NSKeyedArchiver archiveRootObject:person toFile:archiveFilePath]
+                        NSLog(@"archiving ok");
+                    } else {
+                        NSLog(@"archiving failed");
+                    };
+                }
+                
                 [_table reloadData];
             } else {
                 NSLog(@"non");
@@ -108,6 +136,7 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
         }
     }];
     [searchTask resume];
+    }
 }
 
 #pragma mark - UITableViewDataSource
