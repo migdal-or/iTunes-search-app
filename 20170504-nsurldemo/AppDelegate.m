@@ -5,9 +5,10 @@
 //  Created by iOS-School-1 on 04/05/2017.
 //  Copyright © 2017 iOS-School-1. All rights reserved.
 //
+// NUD = NsUrlDemo :)
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "NUDNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window = window;
-    ViewController *viewController = [ViewController new];
+    NUDNavigationController *viewController = [NUDNavigationController new];
     viewController.view.frame = window.frame;
     window.rootViewController = viewController;
 

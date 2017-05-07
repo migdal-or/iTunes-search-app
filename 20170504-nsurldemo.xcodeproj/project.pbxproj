@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		04FC0DEC1EBB908600EDD126 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DEB1EBB908600EDD126 /* main.m */; };
 		04FC0DEF1EBB908600EDD126 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DEE1EBB908600EDD126 /* AppDelegate.m */; };
-		04FC0DF21EBB908600EDD126 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DF11EBB908600EDD126 /* ViewController.m */; };
+		04FC0DF21EBB908600EDD126 /* NUDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC0DF11EBB908600EDD126 /* NUDNavigationController.m */; };
 		04FC0DF71EBB908600EDD126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FC0DF61EBB908600EDD126 /* Assets.xcassets */; };
 		842602281EBCD22600A54B07 /* NUDSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 842602271EBCD22600A54B07 /* NUDSong.m */; };
 		844764051EBDE7E90059687B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844764041EBDE7E90059687B /* Default-568h@2x.png */; };
 		84FE57541EBCDC4B009118B1 /* NUDTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE57531EBCDC4B009118B1 /* NUDTable.m */; };
-		84FE57571EBCE6C1009118B1 /* NUDTableLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FE57561EBCE6C1009118B1 /* NUDTableLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +21,8 @@
 		04FC0DEB1EBB908600EDD126 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04FC0DED1EBB908600EDD126 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04FC0DEE1EBB908600EDD126 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04FC0DF01EBB908600EDD126 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		04FC0DF11EBB908600EDD126 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04FC0DF01EBB908600EDD126 /* NUDNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NUDNavigationController.h; sourceTree = "<group>"; };
+		04FC0DF11EBB908600EDD126 /* NUDNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NUDNavigationController.m; sourceTree = "<group>"; };
 		04FC0DF61EBB908600EDD126 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04FC0DFB1EBB908600EDD126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842602261EBCD22600A54B07 /* NUDSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDSong.h; sourceTree = "<group>"; };
@@ -31,8 +30,6 @@
 		844764041EBDE7E90059687B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		84FE57521EBCDC4B009118B1 /* NUDTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTable.h; sourceTree = "<group>"; };
 		84FE57531EBCDC4B009118B1 /* NUDTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTable.m; sourceTree = "<group>"; };
-		84FE57551EBCE6C1009118B1 /* NUDTableLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUDTableLoader.h; sourceTree = "<group>"; };
-		84FE57561EBCE6C1009118B1 /* NUDTableLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUDTableLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,14 +65,8 @@
 			children = (
 				04FC0DED1EBB908600EDD126 /* AppDelegate.h */,
 				04FC0DEE1EBB908600EDD126 /* AppDelegate.m */,
-				04FC0DF01EBB908600EDD126 /* ViewController.h */,
-				04FC0DF11EBB908600EDD126 /* ViewController.m */,
-				84FE57551EBCE6C1009118B1 /* NUDTableLoader.h */,
-				84FE57561EBCE6C1009118B1 /* NUDTableLoader.m */,
-				84FE57521EBCDC4B009118B1 /* NUDTable.h */,
-				84FE57531EBCDC4B009118B1 /* NUDTable.m */,
-				842602261EBCD22600A54B07 /* NUDSong.h */,
-				842602271EBCD22600A54B07 /* NUDSong.m */,
+				84809C591EBF438D00A942F7 /* Model */,
+				84809C571EBF437700A942F7 /* View */,
 				04FC0DF61EBB908600EDD126 /* Assets.xcassets */,
 				04FC0DFB1EBB908600EDD126 /* Info.plist */,
 				04FC0DEA1EBB908600EDD126 /* Supporting Files */,
@@ -89,6 +80,50 @@
 				04FC0DEB1EBB908600EDD126 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84809C571EBF437700A942F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84809C581EBF438200A942F7 /* Navigation */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		84809C581EBF438200A942F7 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				04FC0DF01EBB908600EDD126 /* NUDNavigationController.h */,
+				04FC0DF11EBB908600EDD126 /* NUDNavigationController.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		84809C591EBF438D00A942F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84809C5A1EBF439900A942F7 /* Table with songs */,
+				84809C5B1EBF43A200A942F7 /* One song item */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		84809C5A1EBF439900A942F7 /* Table with songs */ = {
+			isa = PBXGroup;
+			children = (
+				84FE57521EBCDC4B009118B1 /* NUDTable.h */,
+				84FE57531EBCDC4B009118B1 /* NUDTable.m */,
+			);
+			name = "Table with songs";
+			sourceTree = "<group>";
+		};
+		84809C5B1EBF43A200A942F7 /* One song item */ = {
+			isa = PBXGroup;
+			children = (
+				842602261EBCD22600A54B07 /* NUDSong.h */,
+				842602271EBCD22600A54B07 /* NUDSong.m */,
+			);
+			name = "One song item";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,10 +196,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04FC0DF21EBB908600EDD126 /* ViewController.m in Sources */,
+				04FC0DF21EBB908600EDD126 /* NUDNavigationController.m in Sources */,
 				842602281EBCD22600A54B07 /* NUDSong.m in Sources */,
 				04FC0DEF1EBB908600EDD126 /* AppDelegate.m in Sources */,
-				84FE57571EBCE6C1009118B1 /* NUDTableLoader.m in Sources */,
 				84FE57541EBCDC4B009118B1 /* NUDTable.m in Sources */,
 				04FC0DEC1EBB908600EDD126 /* main.m in Sources */,
 			);

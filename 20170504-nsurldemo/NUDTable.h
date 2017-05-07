@@ -14,6 +14,6 @@
 -(instancetype) initWithArray: (NSArray *) starts;
 -(NUDSong *) objectAtIndexedSubscript: (NSUInteger) index;
 -(NSUInteger) count;
--(instancetype) initSongsFromArray: (NSArray *) iTunesArray;
+//-(instancetype) initSongsFromArray: (NSArray *) iTunesArray;
 
 @end

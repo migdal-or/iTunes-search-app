@@ -1,18 +1,17 @@
 //
-//  ViewController.m
+//  ViewController.m -> NavigationController.m
 //  20170504-nsurldemo
 //
 //  Created by iOS-School-1 on 04/05/2017.
 //  Copyright © 2017 iOS-School-1. All rights reserved.
 //
 
-#import "ViewController.h"
-//#import "NUDTableLoader.h"
+#import "NUDNavigationController.h"
 #import "NUDTable.h"
 
 NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 
-@interface ViewController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface NUDNavigationController () <NSURLSessionDownloadDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchBar;
 @property (nonatomic, strong) NSURLSession *session;
@@ -22,7 +21,7 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 
 @end
 
-@implementation ViewController
+@implementation NUDNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
