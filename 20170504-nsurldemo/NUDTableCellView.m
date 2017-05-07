@@ -22,19 +22,19 @@
     
     _track = [UILabel new];
     [self addSubview:_track];
-    _track.frame = CGRectMake(0, 0, 50, 30);
+    _track.frame = CGRectMake(60, 0, 50, 30);
     
     _artist = [UILabel new];
     [self addSubview:_artist];
-    _artist.frame = CGRectMake(55, 0, 50, 30);
+    _artist.frame = CGRectMake(60, 20, 50, 30);
 
     _collection = [UILabel new];
     [self addSubview:_collection];
-    _collection.frame = CGRectMake(0, 40, 50, 30);
+    _collection.frame = CGRectMake(60, 40, 50, 30);
 
     _image = [UIImageView new];
     [self addSubview:_image];
-    _image.frame = CGRectMake(55, 40, 50, 30);
+    _image.frame = CGRectMake(0, 0, 60, 60);
 
 }
 

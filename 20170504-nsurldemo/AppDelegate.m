@@ -23,11 +23,23 @@
     UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window = window;
     NUDNavigationController *viewController = [NUDNavigationController new];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:82.0/255.0
+                                                                  green:176.0/255.0
+                                                                   blue:243.0/255.0
+                                                                  alpha:1.0]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor whiteColor] }];
+    [[UINavigationBar appearance] setTranslucent:NO];
+
     viewController.view.frame = window.frame;
+	
     window.rootViewController = viewController;
 
     [window makeKeyAndVisible];
+    
+    
 
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent; //from https://github.com/andrefilimono/ItunesSearcher/blob/master/ItunesSearcher/ISFAppDelegate.m
+    
     return YES;
 }
 
