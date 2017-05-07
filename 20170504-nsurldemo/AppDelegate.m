@@ -21,7 +21,7 @@
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window = window;
-    UIViewController *viewController = [ViewController new];
+    ViewController *viewController = [ViewController new];
     viewController.view.frame = window.frame;
     window.rootViewController = viewController;
 

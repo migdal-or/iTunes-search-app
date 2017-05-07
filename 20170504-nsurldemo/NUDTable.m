@@ -11,7 +11,7 @@
 
 @interface NUDTable ()
 
-@property(nonatomic, copy, readwrite) NSMutableArray *table;
+@property(nonatomic, copy, readwrite) NSArray *table;
 
 @end
 

@@ -10,7 +10,7 @@
 
 extern NSString *const NUDCellIdentifier;
 
-@interface ViewController : UIViewController
+@interface ViewController : UINavigationController
 
 @end
 

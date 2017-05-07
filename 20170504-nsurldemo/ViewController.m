@@ -27,6 +27,8 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self setTitle:@"search"];
+    [self.navigationBar setBarStyle:UIBarStyleDefault];
     
     NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     _session = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
@@ -43,7 +45,7 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
     _searchBar = [UITextField new]; //uisearchfield
     _searchBar.text = @"term";
     _searchBar.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
-    _searchBar.frame = CGRectMake(10, 10, 200, 30);
+    _searchBar.frame = CGRectMake(10, 40, 200, 30);
     [_searchBar addTarget:self action:@selector(performSearch) forControlEvents:UIControlEventEditingDidEndOnExit];
     [_table addSubview:_searchBar];
     
@@ -86,14 +88,13 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
             searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (! [@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
 //                _searchBar.hidden = YES;
-                NSArray * songsFound;
+                NUDTable * songsFound;
                 songsFound = searchResult[@"results"];  //[searchResult allValues][1]
                 for (id item in songsFound) {
-//                    NSLog(@"got here! %@", item);
                     [arrayOfSongs addObject:addSong(item[@"trackName"], item[@"artistName"], item[@"collectionName"], [NSURL URLWithString:item[@"artworkUrl30"] ]) ];
                 }
                 
-                _songsTable = arrayOfSongs;
+                _songsTable = [arrayOfSongs copy];
                 NSLog(@"search returned %d results", songsFound.count);
                 
                 [_table reloadData];
