@@ -12,7 +12,7 @@ extern NSString *const NUDCellIdentifier;
 
 @interface NUDNavigationController : UINavigationController
 
-- (void)clearSearchSub;
+- (void)clearSearchClicked;
 
 @end
 

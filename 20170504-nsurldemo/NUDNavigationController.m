@@ -53,16 +53,14 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
     _searchBar.frame = CGRectMake(10, 0, 200, 30);
     [self.navigationBar addSubview:_searchBar];
     
-    _clearSearch = [UIButton new];
-    _clearSearch.titleLabel.text = @"none yet";
-//    _clearSearch.titleLabel.backgroundColor = [UIColor yellowColor];
+    _clearSearch = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_clearSearch setTitle:@"stub" forState:UIControlStateNormal];
 //    _clearSearch.titleLabel.textColor = [UIColor redColor];
-
-//    _clearSearch.hidden = YES;
-//    _clearSearch.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
+    _clearSearch.hidden = YES;
+    _clearSearch.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1];
     _clearSearch.frame = CGRectMake(210, 0, 60, 30);
-    [_clearSearch addTarget:self action:@selector(clearSearchSub) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_clearSearch];
+    [_clearSearch addTarget:self action:@selector(clearSearchClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationBar addSubview:_clearSearch];
 
     [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:NUDCellIdentifier];
    
@@ -71,8 +69,9 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
     }
 }
 
-- (void)clearSearchSub {
+- (void)clearSearchClicked {
     _songsTable=@[];
+    _clearSearch.hidden = YES;
     [_table reloadData];
 }
 
@@ -80,10 +79,10 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
     if (LOCAL_MODE) {
         _songsTable = [[NUDTable alloc] initWithArray: [NSKeyedUnarchiver unarchiveObjectWithFile:ARCHIVE_FILE_PATH] ];
         NSLog(@"got %d records from local file %@, showing", [_songsTable count], ARCHIVE_FILE_PATH);
-//        _clearSearch.hidden = NO;
-//        _clearSearch.titleLabel.text = [NSString stringWithFormat:@"%d found, clear?", [_songsTable count]];
-//        _clearSearch.titleLabel.textColor = [UIColor redColor];
-//        [_clearSearch sizeToFit];
+        _clearSearch.hidden = NO;
+        [_clearSearch setTitle:[NSString stringWithFormat:@"%d found, clear?", [_songsTable count]] forState:UIControlStateNormal] ;
+        NSLog([NSString stringWithFormat:@"%d found, clear?", [_songsTable count]]);
+        [_clearSearch sizeToFit];
        [_table reloadData];
     } else {
         NSLog(@"start querying iTunes");
