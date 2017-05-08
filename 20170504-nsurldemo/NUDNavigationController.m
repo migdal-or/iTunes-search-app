@@ -9,7 +9,7 @@
 #import "NUDNavigationController.h"
 #import "NUDTable.h"
 #import "NUDTableCellView.h"
-#define LOCAL_MODE YES // just to skip all this iTunes bullshit and load data from local file )
+#define LOCAL_MODE NO // just to skip all this iTunes bullshit and load data from local file )
 #define STORE_FILE NO // save itunes data if non-local mode call?
 #define ARCHIVE_FILE_PATH @"/Users/admin/Desktop/songsTable.data"
 #define NAVBAR_HEIGHT 60
@@ -81,11 +81,16 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
         NSLog(@"got %d records from local file %@, showing", [_songsTable count], ARCHIVE_FILE_PATH);
         _clearSearch.hidden = NO;
         [_clearSearch setTitle:[NSString stringWithFormat:@"%d found, clear?", [_songsTable count]] forState:UIControlStateNormal] ;
-        NSLog([NSString stringWithFormat:@"%d found, clear?", [_songsTable count]]);
+//        NSLog([NSString stringWithFormat:@"%d found, clear?", [_songsTable count]]);
         [_clearSearch sizeToFit];
        [_table reloadData];
     } else {
         NSLog(@"start querying iTunes");
+        _clearSearch.hidden = NO;
+        [_clearSearch setTitle:@"please wait" forState:UIControlStateNormal];
+        [_clearSearch sizeToFit];
+        [_clearSearch setEnabled:NO];
+        
         //encode search bar text for inserting to url
         NSString *searchTextWithoutSpaces = [_searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         NSString *searchTextForURL = [searchTextWithoutSpaces stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
@@ -113,10 +118,15 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
                 searchResult = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
                 if ([@0 isEqualToNumber:searchResult[@"resultCount"] ]) {
                     NSLog(@"received 0 records from search, try again");
+                    _songsTable=@[];
                 } else {
                     //                _searchBar.hidden = YES;
                     NUDTable * songsFound;
-                    songsFound = searchResult[@"results"];  //[searchResult allValues][1]
+                    songsFound = searchResult[@"results"];
+                    [_clearSearch setTitle:[NSString stringWithFormat:@"getting %d images", [songsFound count]] forState:UIControlStateNormal];
+                    [_clearSearch sizeToFit];
+                    [_clearSearch setEnabled:NO];
+
                     for (id item in songsFound) {
                         [arrayOfSongs addObject:addSong( item[@"trackName"],
                                                         item[@"artistName"],
@@ -124,9 +134,6 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
                                                         [NSURL URLWithString:item[@"artworkUrl60"]] ) ];
                     }
                     _songsTable = arrayOfSongs; //i could copy, but it would consume 2x memory
-                    _clearSearch.titleLabel.text = [NSString stringWithFormat:@"%d found, clear?", [_songsTable count]];
-                    [_clearSearch sizeToFit];
-                    _clearSearch.hidden = NO;
                    NSLog(@"search returned %d results", _songsTable.count);
                     
                     if (STORE_FILE) {
@@ -140,9 +147,13 @@ NSString *const NUDCellIdentifier = @"NUDCellIdentifier";
                         NSLog(@"not archiving file to local because of defines setup");
                     }
                     
-                    [_table reloadData];
                 }
             }
+            _clearSearch.hidden = NO;
+            [_clearSearch setEnabled:YES];
+            [_clearSearch setTitle:[NSString stringWithFormat:@"%d found, clear?", [_songsTable count]] forState:UIControlStateNormal] ;
+            [_clearSearch sizeToFit];
+            [_table reloadData];
         }];
         [searchTask resume];
     }
